@@ -1,0 +1,123 @@
+package Lab_1;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Created by Alexey_O on 23.02.2017.
+ */
+public class Main {
+    private static JFrame jFrame = Resources.createJFrame();
+    private static JPanel jPanel = new JPanel();
+    private static LinePart linePart;
+
+    public static void main(String[] args) {
+        //Create elements...
+        JMenuBar jMenuBar = new JMenuBar();
+        //* ImageIcons:
+        ImageIcon imageIconFile = new ImageIcon("Lab1_resources/file24x24.png");
+        ImageIcon imageIconParts = new ImageIcon("Lab1_resources/part24x24.png");
+        ImageIcon imageIconInfo = new ImageIcon("Lab1_resources/info24x24.png");
+        ImageIcon imageIconLinePart = new ImageIcon("Lab1_resources/line24x24.png");
+        ImageIcon imageIconConditionPart = new ImageIcon("Lab1_resources/condition24x24.png");
+        ImageIcon imageIconLoopPart = new ImageIcon("Lab1_resources/loop24x24.png");
+        ImageIcon imageIconAuthor = new ImageIcon("Lab1_resources/author24x24.png");
+        ImageIcon imageIconLab = new ImageIcon("Lab1_resources/lab24x24.png");
+        ImageIcon imageIconAdditional = new ImageIcon("Lab1_resources/additional24x24.png");
+        //* Columns:
+        JMenu jMenuFile = new JMenu("File");
+        JMenu jMenuParts = new JMenu("Parts of task");
+        JMenu jMenuInfo = new JMenu("Info");
+        //* Menu items:
+        JMenuItem jMenuItemLinePart = new JMenuItem("Line part");
+        JMenuItem jMenuItemConditionPart = new JMenuItem("Condition part");
+        JMenuItem jMenuItemLoopPart = new JMenuItem("Loop part");
+        JMenuItem jMenuItemInfoAuthor = new JMenuItem("About lab's author");
+        JMenuItem jMenuItemInfoLab = new JMenuItem("More about lab work");
+        JMenuItem jMenuItemInfoAdditional = new JMenuItem("Additional info");
+
+        //Change or set elements...
+        jFrame.setJMenuBar(jMenuBar);
+        //* Mnemonics:
+        jMenuFile.setMnemonic('F');
+        jMenuParts.setMnemonic('P');
+        jMenuInfo.setMnemonic('I');
+        //* Icons:
+        jMenuFile.setIcon(imageIconFile);
+        jMenuParts.setIcon(imageIconParts);
+        jMenuInfo.setIcon(imageIconInfo);
+        jMenuItemLinePart.setIcon(imageIconLinePart);
+        jMenuItemConditionPart.setIcon(imageIconConditionPart);
+        jMenuItemLoopPart.setIcon(imageIconLoopPart);
+        jMenuItemInfoAuthor.setIcon(imageIconAuthor);
+        jMenuItemInfoLab.setIcon(imageIconLab);
+        jMenuItemInfoAdditional.setIcon(imageIconAdditional);
+        //* Tips:
+        //** Columns:
+        jMenuFile.setToolTipText("Press to use file settings and actions.");
+        jMenuParts.setToolTipText("Press 1 of 3 parts to choose and show window with needed algorithm part (LINE, CONDITION or LOOP part).");
+        jMenuInfo.setToolTipText("Press to show Info about work.");
+        //** Menu items:
+        jMenuItemLinePart.setToolTipText("Press to show LINE part of algorithm.");
+        jMenuItemConditionPart.setToolTipText("Press to show CONDITION part of algorithm.");
+        jMenuItemLoopPart.setToolTipText("Press to show LOOP part of algorithm.");
+        jMenuItemInfoAuthor.setToolTipText("Press to view information about lab's author.");
+        jMenuItemInfoLab.setToolTipText("Press to learn more about current lab.");
+        jMenuItemInfoAdditional.setToolTipText("Press to view additional information.");
+
+        //Add elements to...
+        //* Columns:
+        jMenuBar.add(jMenuFile);  //I have no ideas for this menu column yet...
+        jMenuBar.add(jMenuParts);
+        jMenuBar.add(jMenuInfo);
+        //* Menu items:
+        jMenuParts.add(jMenuItemLinePart);
+        jMenuParts.add(jMenuItemConditionPart);
+        jMenuParts.add(jMenuItemLoopPart);
+        jMenuInfo.add(jMenuItemInfoAuthor);
+        jMenuInfo.add(jMenuItemInfoLab);
+        jMenuInfo.add(jMenuItemInfoAdditional);
+        //* ActionListeners:
+        jMenuItemLinePart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Line part window", JOptionPane.PLAIN_MESSAGE);
+                linePart = new LinePart();
+            }
+        });
+        jMenuItemConditionPart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Condition part window", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jMenuItemLoopPart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Loop part window", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jMenuItemInfoAuthor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "<Some info about author>", "About author", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jMenuItemInfoLab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "<Some more info about lab>", "More about Lab", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jMenuItemInfoAdditional.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "<Some additional info>", "Additional info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        jFrame.revalidate();
+    }
+}
