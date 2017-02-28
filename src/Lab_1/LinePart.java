@@ -83,17 +83,17 @@ public class LinePart {
                 try {
                     double dA = Double.parseDouble(jTextFieldA.getText());
                     double dB = Double.parseDouble(jTextFieldB.getText());
-                    if (dA < -6 || dA >6 || dB < -6 || dB > 6) {
-                        JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which are bigger then -6 and smaller then 6!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
-                        jTextFieldA.setText("A argument: ");
-                        jTextFieldB.setText("B argument: ");
-                        return;
-                    }
+//                    if (dA < -6 || dA >6 || dB < -6 || dB > 6) {
+//                        JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which are bigger then -6 and smaller then 6!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
+//                        jTextFieldA.setText("");
+//                        jTextFieldB.setText("");
+//                        return;
+//                    }
                     jLabelResult.setText(" = " + calculate(dA, dB));
                 } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which include only decimal digits!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
-                    jTextFieldA.setText("A argument: ");
-                    jTextFieldB.setText("B argument: ");
+                    jTextFieldA.setText("");
+                    jTextFieldB.setText("");
                     nfe.getStackTrace();
                 }
             }
@@ -101,13 +101,17 @@ public class LinePart {
         jButtonClean.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "Here should be performed clean log action, but it is not ready yet :(", "Imitates work of \"Clean\" button", JOptionPane.INFORMATION_MESSAGE);
+                if( JOptionPane.showConfirmDialog(jFrame, "Are you sure yo want to clean (delete whole) CALCULATION LOG? \nIt contains " + results.size() + " elements at the moment!", "Clean log", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == 0) {
+                    JOptionPane.showMessageDialog(jFrame, cleanLog() + " elements have been cleaned successfuly!", "Clean log", JOptionPane.OK_OPTION);
+                }
+                    //JOptionPane.showMessageDialog(jFrame, "Here should be performed clean log action, but it is not ready yet :(", "Imitates work of \"Clean\" button", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         jButtonShow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "Here should be performed show log action, but it is not ready yet :(", "Imitates work of \"Show\" button", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(jFrame, getLogString(), "Calculation log", JOptionPane.PLAIN_MESSAGE);
+                //JOptionPane.showMessageDialog(jFrame, "Here should be performed show log action, but it is not ready yet :(", "Imitates work of \"Show\" button", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -123,8 +127,8 @@ public class LinePart {
 
     //Calculates result value and turns it to string
     private String calculate (double a, double b) {
-        double part1 = Math.sin(a/6);
-        double part2 = Math.cos(b/6);
+        double part1 = Math.sin((a/6) % 3.14159265);
+        double part2 = Math.cos((b/6) % 3.14159265);
         double result = Math.sqrt( part1 + part2 ) + Math.sqrt(2 * part1 * part2);
         results.add(new Double[]{a,b,result});
         String str = new String();
@@ -144,8 +148,23 @@ public class LinePart {
         return log;
     }
 
+    private String getLogString() {
+        if (results.size() < 1) {
+            return "Log is empty!";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("A arg ; B arg ; Result \n");
+        for (int i = 0; i < results.size(); i++) {
+            stringBuilder.append((results.get(i))[0].toString() + "; ");
+            stringBuilder.append((results.get(i))[1].toString() + "; ");
+            stringBuilder.append((results.get(i))[2].toString() + " \n");
+        }
+        String string = new String(stringBuilder);
+        return string;
+    }
+
     //Clears calculation log
-    private int clearLog() {
+    private int cleanLog() {
         int len = results.size();
         if (len > 0) {
             results.clear();
