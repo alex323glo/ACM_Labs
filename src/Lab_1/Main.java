@@ -12,9 +12,11 @@ import java.awt.event.ActionListener;
  * Created by Alexey_O on 23.02.2017.
  */
 public class Main {
-    private static JFrame jFrame = Resources.createJFrame();
+    private static JFrame jFrame = Resources.createJFrame("Lab work #1");
     private static JPanel jPanel = new JPanel();
     private static LinePart linePart;
+    private static ConditionPart conditionPart;
+    private static LoopPart loopPart;
 
     public static void main(String[] args) {
         //Create elements...
@@ -104,13 +106,15 @@ public class Main {
         jMenuItemConditionPart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Condition part window", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Condition part window", JOptionPane.INFORMATION_MESSAGE);
+                conditionPart = new ConditionPart();
             }
         });
         jMenuItemLoopPart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Loop part window", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Loop part window", JOptionPane.INFORMATION_MESSAGE);
+                loopPart = new LoopPart();
             }
         });
         jMenuItemInfoAuthor.addActionListener(new ActionListener() {

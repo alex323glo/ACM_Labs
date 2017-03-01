@@ -34,7 +34,7 @@ public class LinePart {
 
     public LinePart() {
         //Init elements...
-        jFrame = Resources.createJFrame();
+        jFrame = Resources.createJFrame("Line part");
         gridBagLayout = new GridBagLayout();
         constraintsImage = new GridBagConstraints();
         constraintsResult = new GridBagConstraints();
@@ -52,7 +52,7 @@ public class LinePart {
         jLabelB = new JLabel("B argument: ");
         jLabelResult = new JLabel(" = <result>");
         jLabelImage = new JLabel("");
-        imageFormula = new ImageIcon("Lab1_resources/formula.png");
+        imageFormula = new ImageIcon("Lab1_resources/formulaLine.png");
 
         //Change or set elements...
         Resources.fixConstraint(constraintsImage, 0, 3, 1, 5, 0, 0);
@@ -60,7 +60,7 @@ public class LinePart {
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jPanelResult.setLayout(gridBagLayout);
         jLabelImage.setIcon(imageFormula);
-        jLabelResult.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        jLabelResult.setFont(new Font("MyFont", Font.BOLD, 24));
 
         //Add elements to...
         //* Add to JFrame:
@@ -81,14 +81,14 @@ public class LinePart {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    double dA = Double.parseDouble(jTextFieldA.getText());
-                    double dB = Double.parseDouble(jTextFieldB.getText());
-//                    if (dA < -6 || dA >6 || dB < -6 || dB > 6) {
-//                        JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which are bigger then -6 and smaller then 6!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
-//                        jTextFieldA.setText("");
-//                        jTextFieldB.setText("");
-//                        return;
-//                    }
+                    double dA = Double.parseDouble(jTextFieldA.getText()) % 37.69911184;
+                    double dB = Double.parseDouble(jTextFieldB.getText()) % 37.69911184;
+                    if (dA < 0 || dA > 18.84955592 || dB < -9.42477796 || dB > 9.42477796) {
+                        JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! \nPlease, enter arguments, which are: \n1) A = (12 *PI * n .. 6 * PI + 12 * PI * n); \n2) B = (-3 * PI + 12 *PI * n .. 3 * PI + 12 * PI * n), \nwhere n belongs to Z-numbers.","Wrong arguments", JOptionPane.ERROR_MESSAGE);
+                        jTextFieldA.setText("");
+                        jTextFieldB.setText("");
+                        return;
+                    }
                     jLabelResult.setText(" = " + calculate(dA, dB));
                 } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which include only decimal digits!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
@@ -102,33 +102,28 @@ public class LinePart {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if( JOptionPane.showConfirmDialog(jFrame, "Are you sure yo want to clean (delete whole) CALCULATION LOG? \nIt contains " + results.size() + " elements at the moment!", "Clean log", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == 0) {
-                    JOptionPane.showMessageDialog(jFrame, cleanLog() + " elements have been cleaned successfuly!", "Clean log", JOptionPane.OK_OPTION);
+                    jTextFieldA.setText("");
+                    jTextFieldB.setText("");
+                    jLabelResult.setText("<result>");
+                    JOptionPane.showMessageDialog(jFrame, Resources.cleanLog(results) + " elements have been cleaned successfully!", "Clean log", JOptionPane.OK_OPTION);
                 }
-                    //JOptionPane.showMessageDialog(jFrame, "Here should be performed clean log action, but it is not ready yet :(", "Imitates work of \"Clean\" button", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         jButtonShow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(jFrame, getLogString(), "Calculation log", JOptionPane.PLAIN_MESSAGE);
-                //JOptionPane.showMessageDialog(jFrame, "Here should be performed show log action, but it is not ready yet :(", "Imitates work of \"Show\" button", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
         jFrame.revalidate();
     }
 
-    //Shows window of Line part
-    public void visualise() {
-        System.out.println("(1; 1) Result = " + calculate(1,1));
-        System.out.println("(3; 3) Result = " + calculate(3,3));
-        System.out.println("(6; 6) Result = " + calculate(6,6));
-    }
-
     //Calculates result value and turns it to string
     private String calculate (double a, double b) {
-        double part1 = Math.sin((a/6) % 3.14159265);
-        double part2 = Math.cos((b/6) % 3.14159265);
+        double part1 = Math.sin((a/6) % 6.28318530);
+        double part2 = Math.cos((b/6) % 6.28318530);
+        System.out.println(part1 + " ;\n" + part2);
         double result = Math.sqrt( part1 + part2 ) + Math.sqrt(2 * part1 * part2);
         results.add(new Double[]{a,b,result});
         String str = new String();
@@ -137,17 +132,7 @@ public class LinePart {
         return str;
     }
 
-    //Returns calculation log as an array of type double[3] (result - matrix)
-    private double[][] getLog() {
-        double[][] log = new double[results.size()][3];
-        for (int i = 0; i < results.size(); i++) {
-            log[i][0] = (results.get(i))[0];
-            log[i][1] = (results.get(i))[1];
-            log[i][2] = (results.get(i))[2];
-        }
-        return log;
-    }
-
+    //returns String form : "<Arg1> ; <Arg2> ; <Result>"
     private String getLogString() {
         if (results.size() < 1) {
             return "Log is empty!";
@@ -161,14 +146,5 @@ public class LinePart {
         }
         String string = new String(stringBuilder);
         return string;
-    }
-
-    //Clears calculation log
-    private int cleanLog() {
-        int len = results.size();
-        if (len > 0) {
-            results.clear();
-        }
-        return len;
     }
 }

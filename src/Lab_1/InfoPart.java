@@ -9,7 +9,7 @@ public class InfoPart {
 
     public void showAuthorInfo() {
         //Assign...
-        jFrame = Resources.createJFrame();
+        jFrame = Resources.createJFrame("Info");
         jPaneL = new JPanel();
 
 
