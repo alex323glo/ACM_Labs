@@ -33,11 +33,11 @@ public class LinePart {
     GridBagConstraints constraintsResult;
 
     public LinePart() {
+        //Init elements...
+        jFrame = Resources.createJFrame();
         gridBagLayout = new GridBagLayout();
         constraintsImage = new GridBagConstraints();
         constraintsResult = new GridBagConstraints();
-        //Init elements...
-        jFrame = Resources.createJFrame();
         //* JButtons:
         jButtonCalc = new JButton("Calculate");
         jButtonShow = new JButton("Show");

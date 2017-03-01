@@ -1,5 +1,8 @@
 package Lab_1;
 
+import sun.font.FontManager;
+import sun.font.FontManagerNativeLibrary;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +18,9 @@ public class Main {
 
     public static void main(String[] args) {
         //Create elements...
+        //Font font = new Font("Times New Roman", Font.ITALIC, 36);
+        Font font = new Font("MyFont", Font.ROMAN_BASELINE, 36);
+        JTextArea jTextArea = new JTextArea(4,20);
         JMenuBar jMenuBar = new JMenuBar();
         //* ImageIcons:
         ImageIcon imageIconFile = new ImageIcon("Lab1_resources/file24x24.png");
@@ -39,6 +45,12 @@ public class Main {
         JMenuItem jMenuItemInfoAdditional = new JMenuItem("Additional info");
 
         //Change or set elements...
+        jTextArea.setFont(font);
+        jTextArea.add(new JButton("submit"));
+        jTextArea.setLineWrap(true);
+        jTextArea.setEditable(false);
+        jTextArea.setToolTipText("If you want do find out more about Lab work, Author or some Additional information, try to use \"Info\" menu part!");
+        jTextArea.setText("Lab work #1 \nAuthor: Olexiy Orlyuk \nAuthor's group: IP-54 \nAuthor's group-list number: 11");
         jFrame.setJMenuBar(jMenuBar);
         //* Mnemonics:
         jMenuFile.setMnemonic('F');
@@ -68,6 +80,8 @@ public class Main {
         jMenuItemInfoAdditional.setToolTipText("Press to view additional information.");
 
         //Add elements to...
+        jFrame.add(jTextArea, BorderLayout.CENTER);
+        //jFrame.add(new JTextArea(20,5), BorderLayout.WEST);
         //* Columns:
         jMenuBar.add(jMenuFile);  //I have no ideas for this menu column yet...
         jMenuBar.add(jMenuParts);
