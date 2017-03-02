@@ -19,6 +19,7 @@ public class LinePart {
     private JButton jButtonCalc;
     private JButton jButtonShow;
     private JButton jButtonClean;
+    private JButton jButtonReadFile;
     private JTextField jTextFieldA;
     private JTextField jTextFieldB;
     private JPanel jPanelFields;
@@ -28,9 +29,9 @@ public class LinePart {
     private JLabel jLabelResult;
     private JLabel jLabelImage;
     private ImageIcon imageFormula;
-    GridBagLayout gridBagLayout;
-    GridBagConstraints constraintsImage;
-    GridBagConstraints constraintsResult;
+    private GridBagLayout gridBagLayout;
+    private GridBagConstraints constraintsImage;
+    private GridBagConstraints constraintsResult;
 
     public LinePart() {
         //Init elements...
@@ -42,6 +43,7 @@ public class LinePart {
         jButtonCalc = new JButton("Calculate");
         jButtonShow = new JButton("Show");
         jButtonClean = new JButton("Clean");
+        jButtonReadFile = new JButton("(...)");
         //* JTextFields:
         jTextFieldA = new JTextField(12);
         jTextFieldB = new JTextField(12);
@@ -74,9 +76,16 @@ public class LinePart {
         jPanelFields.add(jTextFieldA);
         jPanelFields.add(jLabelB);
         jPanelFields.add(jTextFieldB);
+        jPanelFields.add(jButtonReadFile);
         jPanelResult.add(jLabelImage, constraintsImage);
         jPanelResult.add(jLabelResult, constraintsResult);
         //* Add ActionListeners:
+        jButtonReadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Resources.chooseArgsFromFile(jFrame, jTextFieldA, jTextFieldB);
+            }
+        });
         jButtonCalc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,7 +100,7 @@ public class LinePart {
                     }
                     jLabelResult.setText(" = " + calculate(dA, dB));
                 } catch (NumberFormatException nfe) {
-                    JOptionPane.showMessageDialog(jFrame, "Wrong argument was entered! Please, enter arguments, which include only decimal digits!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(jFrame, "Wrong arguments were entered! Please, enter arguments, which include only decimal digits!","Wrong arguments", JOptionPane.ERROR_MESSAGE);
                     jTextFieldA.setText("");
                     jTextFieldB.setText("");
                     nfe.getStackTrace();

@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         //Create elements...
         //Font font = new Font("Times New Roman", Font.ITALIC, 36);
-        Font font = new Font("MyFont", Font.ROMAN_BASELINE, 36);
+        Font font = new Font("MyFont", Font.ROMAN_BASELINE, 32);
         JTextArea jTextArea = new JTextArea(4,20);
         JMenuBar jMenuBar = new JMenuBar();
         //* ImageIcons:
@@ -34,11 +34,13 @@ public class Main {
         ImageIcon imageIconAuthor = new ImageIcon("Lab1_resources/author24x24.png");
         ImageIcon imageIconLab = new ImageIcon("Lab1_resources/lab24x24.png");
         ImageIcon imageIconAdditional = new ImageIcon("Lab1_resources/additional24x24.png");
+        ImageIcon imageIconExit = new ImageIcon("Lab1_resources/close32x32.png");
         //* Columns:
         JMenu jMenuFile = new JMenu("File");
         JMenu jMenuParts = new JMenu("Parts of task");
         JMenu jMenuInfo = new JMenu("Info");
         //* Menu items:
+        JMenuItem jMenuItemExit = new JMenuItem("Exit");
         JMenuItem jMenuItemLinePart = new JMenuItem("Line part");
         JMenuItem jMenuItemConditionPart = new JMenuItem("Condition part");
         JMenuItem jMenuItemLoopPart = new JMenuItem("Loop part");
@@ -62,6 +64,7 @@ public class Main {
         jMenuFile.setIcon(imageIconFile);
         jMenuParts.setIcon(imageIconParts);
         jMenuInfo.setIcon(imageIconInfo);
+        jMenuItemExit.setIcon(imageIconExit);
         jMenuItemLinePart.setIcon(imageIconLinePart);
         jMenuItemConditionPart.setIcon(imageIconConditionPart);
         jMenuItemLoopPart.setIcon(imageIconLoopPart);
@@ -74,6 +77,7 @@ public class Main {
         jMenuParts.setToolTipText("Press 1 of 3 parts to choose and show window with needed algorithm part (LINE, CONDITION or LOOP part).");
         jMenuInfo.setToolTipText("Press to show Info about work.");
         //** Menu items:
+        jMenuItemExit.setToolTipText("Press to EXIT program. \n(All the results and logs won't be saved!)");
         jMenuItemLinePart.setToolTipText("Press to show LINE part of algorithm.");
         jMenuItemConditionPart.setToolTipText("Press to show CONDITION part of algorithm.");
         jMenuItemLoopPart.setToolTipText("Press to show LOOP part of algorithm.");
@@ -89,6 +93,7 @@ public class Main {
         jMenuBar.add(jMenuParts);
         jMenuBar.add(jMenuInfo);
         //* Menu items:
+        jMenuFile.add(jMenuItemExit);
         jMenuParts.add(jMenuItemLinePart);
         jMenuParts.add(jMenuItemConditionPart);
         jMenuParts.add(jMenuItemLoopPart);
@@ -96,6 +101,14 @@ public class Main {
         jMenuInfo.add(jMenuItemInfoLab);
         jMenuInfo.add(jMenuItemInfoAdditional);
         //* ActionListeners:
+        jMenuItemExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JOptionPane.showConfirmDialog(jFrame, "Do you want to EXIT?", "Exit", JOptionPane.WARNING_MESSAGE) == 0) {
+                    System.exit(0);
+                }
+            }
+        });
         jMenuItemLinePart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

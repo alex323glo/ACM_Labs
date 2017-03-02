@@ -15,6 +15,7 @@ public class ConditionPart {
     private JButton jButtonCalc;
     private JButton jButtonShow;
     private JButton jButtonClean;
+    private JButton jButtonReadFile;
     private JTextField jTextFieldK;
     private JTextField jTextFieldX;
     private JPanel jPanelFields;
@@ -38,6 +39,7 @@ public class ConditionPart {
         jButtonCalc = new JButton("Calculate");
         jButtonShow = new JButton("Show");
         jButtonClean = new JButton("Clean");
+        jButtonReadFile = new JButton("(...)");
         //* JTextFields:
         jTextFieldK = new JTextField(12);
         jTextFieldX = new JTextField(12);
@@ -70,9 +72,16 @@ public class ConditionPart {
         jPanelFields.add(jTextFieldK);
         jPanelFields.add(jLabelX);
         jPanelFields.add(jTextFieldX);
+        jPanelFields.add(jButtonReadFile);
         jPanelResult.add(jLabelImage, constraintsImage);
         jPanelResult.add(jLabelResult, constraintsResult);
         //* Add ActionListeners:
+        jButtonReadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Resources.chooseArgsFromFile(jFrame, jTextFieldK, jTextFieldX);
+            }
+        });
         jButtonCalc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

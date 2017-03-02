@@ -2,6 +2,7 @@ package Lab_1;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -51,7 +52,58 @@ public class Resources {
         return log;
     }
 
-    public static String[] getArgsFromFile (String filename) {
-        return null;
+    private static String[] getArgsFromFile (File file) {
+        String[] strings = null;
+        String fileText = "";
+        try {
+            if (file.exists() == false) {
+                throw new FileNotFoundException();
+            }
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while (bufferedReader.ready()) {
+                fileText += (bufferedReader.readLine() + " ");
+            }
+            strings = parseText(fileText);
+        } catch (FileNotFoundException e1) {
+            System.out.println("FileNotFoundException! "/* + e1.getStackTrace()*/);
+        } catch (Exception e) {
+            //Some actions...
+        } finally {
+            return strings;
+        }
+    }
+
+    //Parses string on words, devided by <space> symbol
+    private static String[] parseText (String text) {
+        String[] newText = text.split(" ");
+        String[] newText2 = new String[newText.length];
+        for (int i=0, j=0; i < newText.length; i++) {
+            if (newText[i].length() != 0) {
+                newText2[j] = newText[i];
+                j++;
+            }
+        }
+        return newText2;
+    }
+
+    public static void chooseArgsFromFile (JFrame jFrame, JTextField jTextField1, JTextField jTextField2) {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showOpenDialog(jFrame) == 1) {return;}
+            String[] digits = getArgsFromFile(fileChooser.getSelectedFile());
+            if (digits.length < 2) {
+                JOptionPane.showMessageDialog(jFrame, "Wrong arguments were written from file!", "File read error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String arg1 = (String) JOptionPane.showInputDialog(jFrame, "Choose argument #1", "Select #1", JOptionPane.OK_CANCEL_OPTION, null, digits, null);
+            if (arg1 == null) {return;}
+            jTextField1.setText(arg1);
+            String arg2 = (String) JOptionPane.showInputDialog(jFrame, "Choose argument #2", "Select #2", JOptionPane.OK_CANCEL_OPTION, null, digits, null);
+            if (arg2 == null) {return;}
+            jTextField2.setText(arg2);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException!\n" + e.getStackTrace());
+        }
     }
 }

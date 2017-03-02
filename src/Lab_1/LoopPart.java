@@ -15,6 +15,7 @@ public class LoopPart {
     private JButton jButtonCalc;
     private JButton jButtonShow;
     private JButton jButtonClean;
+    private JButton jButtonReadFile;
     private JTextField jTextFieldN;
     private JTextField jTextFieldB;
     private JPanel jPanelFields;
@@ -38,6 +39,7 @@ public class LoopPart {
         jButtonCalc = new JButton("Calculate");
         jButtonShow = new JButton("Show");
         jButtonClean = new JButton("Clean");
+        jButtonReadFile = new JButton("(...)");
         //* JTextFields:
         jTextFieldN = new JTextField(12);
         jTextFieldB = new JTextField(12);
@@ -70,9 +72,16 @@ public class LoopPart {
         jPanelFields.add(jTextFieldN);
         jPanelFields.add(jLabelB);
         jPanelFields.add(jTextFieldB);
+        jPanelFields.add(jButtonReadFile);
         jPanelResult.add(jLabelImage, constraintsImage);
         jPanelResult.add(jLabelResult, constraintsResult);
         //* Add ActionListeners:
+        jButtonReadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Resources.chooseArgsFromFile(jFrame, jTextFieldN, jTextFieldB);
+            }
+        });
         jButtonCalc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
