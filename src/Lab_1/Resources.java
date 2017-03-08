@@ -4,11 +4,59 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Alexey_O on 23.02.2017.
  */
+
 public class Resources {
+    public static final Map<String, String[]> mainMap = createMainMap();
+    public static final Map<String, String[]> lineMap = createLineMap();
+    public static final Map<String, String[]> condMap = createCondMap();
+    public static final Map<String, String[]> loopMap = createLoopMap();
+    public static final Map<String, String[]> infoMap = createInfoMap();
+
+    static private Map<String,String[]> createMainMap() {
+        Map<String,String[]> map = new HashMap<>();
+        map.put("jFrame", new String[] {"Lab work #1", "Лабораторна робота №1"});
+        //map.put("jPanel", new String[] {"", ""});
+        map.put("jTextArea", new String[] {"Lab work #1\n" + "Author: Olexiy Orlyuk\n" + "Author's group: IP-54 \n" + "Author's group-list number: 11", "Лабораторна робота №1\n" + "Автор: Олексій Орлюк\n" + "Група: ІП-54 \n" + "Номер за списком групи: 11"});
+        map.put("jMenuFile", new String[] {"File", "Файл"});
+        map.put("jMenuParts", new String[] {"Parts of task", "Частини завдання"});
+        map.put("jMenuInfo", new String[] {"Info", "Інформація"});
+        map.put("jMenuFileLanguage", new String[] {"Language", "Мова"});
+        map.put("jMenuItemExit", new String[] {"Exit", "Вийти"});
+        map.put("jMenuItemLinePart", new String[] {"Line part", "Лінійний"});
+        map.put("jMenuItemConditionPart", new String[] {"Condition part", "Розгалужений"});
+        map.put("jMenuItemLoopPart", new String[] {"Loop part", "Циклічний"});
+        map.put("jMenuItemInfoAuthor", new String[] {"About lab's author", "Про автора"});
+        map.put("jMenuItemInfoLab", new String[] {"More about lab work", "Більше про лаб. роботу"});
+        map.put("jMenuItemInfoAdditional", new String[] {"Additional info", "Додаткова інформація"});
+        return map;
+    }
+    static private Map<String,String[]> createLineMap() {
+        Map<String,String[]> map = new HashMap<>();
+
+        return map;
+    }
+    static private Map<String,String[]> createCondMap() {
+        Map<String,String[]> map = new HashMap<>();
+
+        return map;
+    }
+    static private Map<String,String[]> createLoopMap() {
+        Map<String,String[]> map = new HashMap<>();
+
+        return map;
+    }
+    static private Map<String,String[]> createInfoMap() {
+        Map<String,String[]> map = new HashMap<>();
+
+        return map;
+    }
+
     public static JFrame createJFrame (String formName) {
         JFrame jFrame = new JFrame();
         jFrame.setVisible(true);
@@ -105,5 +153,16 @@ public class Resources {
         } catch (NullPointerException e) {
             System.out.println("NullPointerException!\n" + e.getStackTrace());
         }
+    }
+
+    static void resetText(int n) {
+        if (n < 0 || n > 1) {
+            return;
+        }
+        ConditionPart.setConditionPartElementText(n);
+        InfoPart.setInfoPartElementText(n);
+        LinePart.setLinePartElementText(n);
+        LoopPart.setLoopPartElementText(n);
+        Main.setMainElementText(n);
     }
 }

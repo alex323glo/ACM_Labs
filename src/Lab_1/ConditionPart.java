@@ -149,4 +149,8 @@ public class ConditionPart {
         String string = new String(stringBuilder);
         return string;
     }
+
+    static void setConditionPartElementText(int n) {
+
+    }
 }

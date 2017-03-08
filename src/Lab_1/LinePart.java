@@ -156,4 +156,8 @@ public class LinePart {
         String string = new String(stringBuilder);
         return string;
     }
+
+    static void setLinePartElementText(int n) {
+
+    }
 }

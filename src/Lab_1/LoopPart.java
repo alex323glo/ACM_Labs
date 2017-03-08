@@ -134,7 +134,6 @@ public class LoopPart {
     //Calculates result value and turns it to string
     private String calculate (long n, double b) {
         double result = 1, sum = 0;
-
         for (int a = 1; a <= n; a++) {
             for (int k = 1; k <= a; k++) {
                 sum += ( (double) Math.pow(a,k) ) + (b / ( (double) k));
@@ -142,7 +141,6 @@ public class LoopPart {
             result *= sum;
             sum = 0;
         }
-
         results.add(new Double[]{((double) n),b,result});
         String str = new String();
         Double d = new Double(result);
@@ -166,5 +164,9 @@ public class LoopPart {
         }
         String string = new String(stringBuilder);
         return string;
+    }
+
+    static void setLoopPartElementText(int n) {
+
     }
 }
