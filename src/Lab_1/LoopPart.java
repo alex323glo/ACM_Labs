@@ -29,7 +29,7 @@ public class LoopPart {
     GridBagConstraints constraintsImage;
     GridBagConstraints constraintsResult;
 
-    public LoopPart() {
+    public LoopPart(int language) {
         //Init elements...
         jFrame = Resources.createJFrame("Loop part");
         gridBagLayout = new GridBagLayout();
@@ -167,6 +167,8 @@ public class LoopPart {
     }
 
     static void setLoopPartElementText(int n) {
-
+        if (n < 0 || n > 1) {
+            return;
+        }
     }
 }

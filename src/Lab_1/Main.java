@@ -13,6 +13,8 @@ import java.util.Map;
  * Created by Alexey_O on 23.02.2017.
  */
 public class Main {
+
+    private static int languageNum = 0;
     //* Main elements
     private static JFrame jFrame;
     private static JPanel jPanel;
@@ -169,13 +171,15 @@ public class Main {
         jMenuItemEnglish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Resources.resetText(0);
+                languageNum = 0;
+                Resources.resetText(languageNum);
             }
         });
         jMenuItemUkrainian.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Resources.resetText(1);
+                languageNum = 1;
+                Resources.resetText(languageNum);
             }
         });
         jMenuItemExit.addActionListener(new ActionListener() {
@@ -190,40 +194,40 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Line part window", JOptionPane.PLAIN_MESSAGE);
-                linePart = new LinePart();
+                linePart = new LinePart(languageNum);
             }
         });
         jMenuItemConditionPart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Condition part window", JOptionPane.INFORMATION_MESSAGE);
-                conditionPart = new ConditionPart();
+                conditionPart = new ConditionPart(languageNum);
             }
         });
         jMenuItemLoopPart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(jFrame, "Here should be new non-modal window, but it is not ready yet :(", "Imitates Loop part window", JOptionPane.INFORMATION_MESSAGE);
-                loopPart = new LoopPart();
+                loopPart = new LoopPart(languageNum);
             }
         });
         jMenuItemInfoAuthor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(jFrame, "<Some info about author>", "About author", JOptionPane.INFORMATION_MESSAGE);
-                infoPart = new InfoPart();
+                JOptionPane.showMessageDialog(jFrame, "Some additional info about lab's author:\n" + "City: Kyiv, Ukraine.\n"+ "Email: alex323glo@gmail.com .\n" + "Tel: +38-068-868-08-42.", "About author", JOptionPane.INFORMATION_MESSAGE);
+                //infoPart = new InfoPart();
             }
         });
         jMenuItemInfoLab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "<Some more info about lab>", "More about Lab", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(jFrame, "This lab work was about different types of \nalgorithms and their specific realisation.", "More about Lab", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         jMenuItemInfoAdditional.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jFrame, "<Some additional info>", "Additional info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(jFrame, "Next lab works will be done either by making integration \ninto this project or using Android platform tools.", "Additional info", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -231,6 +235,9 @@ public class Main {
     }
 
     static void setMainElementText(int n) {
+        if (n < 0 || n > 1) {
+            return;
+        }
         Map<String,String[]> map = Resources.mainMap;
         jFrame.setTitle(map.get("jFrame")[n]);
         jTextArea.setText(map.get("jTextArea")[n]);

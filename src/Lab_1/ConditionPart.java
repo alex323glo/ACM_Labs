@@ -29,7 +29,7 @@ public class ConditionPart {
     GridBagConstraints constraintsImage;
     GridBagConstraints constraintsResult;
 
-    public ConditionPart () {
+    public ConditionPart (int language) {
         //Init elements...
         jFrame = Resources.createJFrame("Condition part");
         gridBagLayout = new GridBagLayout();
@@ -151,6 +151,8 @@ public class ConditionPart {
     }
 
     static void setConditionPartElementText(int n) {
-
+        if (n < 0 || n > 1) {
+            return;
+        }
     }
 }

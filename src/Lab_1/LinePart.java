@@ -9,31 +9,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Alexey_O on 23.02.2017.
  */
 public class LinePart {
-    private ArrayList<Double[]> results = new ArrayList<Double[]>();
-    private JFrame jFrame;
-    private JButton jButtonCalc;
-    private JButton jButtonShow;
-    private JButton jButtonClean;
-    private JButton jButtonReadFile;
-    private JTextField jTextFieldA;
-    private JTextField jTextFieldB;
-    private JPanel jPanelFields;
-    private JPanel jPanelResult;
-    private JLabel jLabelA;
-    private JLabel jLabelB;
-    private JLabel jLabelResult;
-    private JLabel jLabelImage;
-    private ImageIcon imageFormula;
-    private GridBagLayout gridBagLayout;
-    private GridBagConstraints constraintsImage;
-    private GridBagConstraints constraintsResult;
+    private static ArrayList<Double[]> results = new ArrayList<Double[]>();
+    private static JFrame jFrame;
+    private static JButton jButtonCalc;
+    private static JButton jButtonShow;
+    private static JButton jButtonClean;
+    private static JButton jButtonReadFile;
+    private static JTextField jTextFieldA;
+    private static JTextField jTextFieldB;
+    private static JPanel jPanelFields;
+    private static JPanel jPanelResult;
+    private static JLabel jLabelA;
+    private static JLabel jLabelB;
+    private static JLabel jLabelResult;
+    private static JLabel jLabelImage;
+    private static ImageIcon imageFormula;
+    private static GridBagLayout gridBagLayout;
+    private static GridBagConstraints constraintsImage;
+    private static GridBagConstraints constraintsResult;
+    private static String resStr = " = <result>";
 
-    public LinePart() {
+    public LinePart(int language) {
         //Init elements...
         jFrame = Resources.createJFrame("Line part");
         gridBagLayout = new GridBagLayout();
@@ -113,7 +115,7 @@ public class LinePart {
                 if( JOptionPane.showConfirmDialog(jFrame, "Are you sure yo want to clean (delete whole) CALCULATION LOG? \nIt contains " + results.size() + " elements at the moment!", "Clean log", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == 0) {
                     jTextFieldA.setText("");
                     jTextFieldB.setText("");
-                    jLabelResult.setText("<result>");
+                    jLabelResult.setText(resStr);
                     JOptionPane.showMessageDialog(jFrame, Resources.cleanLog(results) + " elements have been cleaned successfully!", "Clean log", JOptionPane.OK_OPTION);
                 }
             }
@@ -125,6 +127,7 @@ public class LinePart {
             }
         });
 
+        //setLinePartElementText(language);
         jFrame.revalidate();
     }
 
@@ -158,6 +161,17 @@ public class LinePart {
     }
 
     static void setLinePartElementText(int n) {
-
+        if (n < 0 || n > 1) {
+            return;
+        }
+        Map<String, String[]> map = Resources.lineMap;
+        jFrame.setTitle(map.get("jFrame")[n]);
+        jButtonCalc.setText(map.get("jButtonCalc")[n]);
+        jButtonShow.setText(map.get("jButtonShow")[n]);
+        jButtonClean.setText(map.get("jButtonClean")[n]);
+        jLabelA.setText(map.get("jLabelA")[n]);
+        jLabelB.setText(map.get("jLabelB")[n]);
+        jLabelResult.setText(map.get("jLabelResult")[n]);
+        resStr = map.get("jLabelResult")[n];
     }
 }

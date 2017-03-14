@@ -28,9 +28,9 @@ public class Resources {
         map.put("jMenuInfo", new String[] {"Info", "Інформація"});
         map.put("jMenuFileLanguage", new String[] {"Language", "Мова"});
         map.put("jMenuItemExit", new String[] {"Exit", "Вийти"});
-        map.put("jMenuItemLinePart", new String[] {"Line part", "Лінійний"});
-        map.put("jMenuItemConditionPart", new String[] {"Condition part", "Розгалужений"});
-        map.put("jMenuItemLoopPart", new String[] {"Loop part", "Циклічний"});
+        map.put("jMenuItemLinePart", new String[] {"Line part", "Лінійна"});
+        map.put("jMenuItemConditionPart", new String[] {"Condition part", "Розгалужена"});
+        map.put("jMenuItemLoopPart", new String[] {"Loop part", "Циклічна"});
         map.put("jMenuItemInfoAuthor", new String[] {"About lab's author", "Про автора"});
         map.put("jMenuItemInfoLab", new String[] {"More about lab work", "Більше про лаб. роботу"});
         map.put("jMenuItemInfoAdditional", new String[] {"Additional info", "Додаткова інформація"});
@@ -39,6 +39,13 @@ public class Resources {
     static private Map<String,String[]> createLineMap() {
         Map<String,String[]> map = new HashMap<>();
 
+        map.put("jFrame", new String[]{"Line part", "Лінійна частина"});
+        map.put("jButtonCalc", new String[]{"Calculate", "Підрахувати"});
+        map.put("jButtonShow", new String[]{"Show", "Історія"});
+        map.put("jButtonClean", new String[]{"Clean", "Стерти"});
+        map.put("jLabelA", new String[]{"A argument: ", "Аргумент А: "});
+        map.put("jLabelB", new String[]{"B argument: ", "Аргумент Б: "});
+        map.put("jLabelResult", new String[]{" = <result>", " = <результат>"});
         return map;
     }
     static private Map<String,String[]> createCondMap() {
@@ -159,10 +166,10 @@ public class Resources {
         if (n < 0 || n > 1) {
             return;
         }
-        ConditionPart.setConditionPartElementText(n);
-        InfoPart.setInfoPartElementText(n);
-        LinePart.setLinePartElementText(n);
-        LoopPart.setLoopPartElementText(n);
+//        ConditionPart.setConditionPartElementText(n);
+//        InfoPart.setInfoPartElementText(n);
+//        LinePart.setLinePartElementText(n);
+//        LoopPart.setLoopPartElementText(n);
         Main.setMainElementText(n);
     }
 }
